@@ -248,7 +248,10 @@
       const redirectTarget = params.get('r');
       if (redirectTarget){
         try{
-          const decoded = decodeURIComponent(redirectTarget);
+          let decoded = decodeURIComponent(redirectTarget);
+          if (!/^https?:\/\//i.test(decoded)){
+            decoded = 'https://' + decoded;
+          }
           if (decoded && decoded !== window.location.href){
             window.location.replace(decoded);
           }
